@@ -83,12 +83,12 @@ type ZiggPost = {
 const trafficIssue = {
 	metro: {
 		name: (traffic: Traffic): string => `Métro ${traffic.line}`,
-		tag: "metro",
+		tag: "Métro",
 		locations: locations.metros,
 	},
 	rer: {
 		name: (traffic: Traffic): string => `RER ${traffic.line}`,
-		tag: "rer",
+		tag: "RER",
 		locations: locations.rers,
 	},
 } as const;
