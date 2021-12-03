@@ -133,6 +133,12 @@ const handler: Handler = async (event, context) => {
 		})
 	});
 
+	try {
+		await Promise.all(promises);
+	} catch (error) {
+		console.log(error)
+	}
+
 	// Sleep 1 second
 	await new Promise(resolve => setTimeout(resolve, 1000));
 
