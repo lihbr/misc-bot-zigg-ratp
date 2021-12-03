@@ -136,7 +136,8 @@ const handler: Handler = async (event, context) => {
 	});
 
 	try {
-		await Promise.all(promises);
+		const success = await Promise.all(promises);
+		console.log(success);
 	} catch (error) {
 		console.log(error)
 	}
