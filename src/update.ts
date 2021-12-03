@@ -60,7 +60,7 @@ const hasCurrentTrafficIssue = (traffic: Traffic): boolean => {
 		return false;
 	}
 
-	const thirtyMinutesAgo = Date.now() - (30 * 60 * 1000);
+	const thirtyMinutesAgo = new Date().getTime() - (30 * 60 * 1000) + (60 * 60 * 1000);
 	return matches.every(match => {
 		const [hours, minutes] = match.split("h");
 
