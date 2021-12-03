@@ -60,13 +60,13 @@ const hasCurrentTrafficIssue = (traffic: Traffic): boolean => {
 		return false;
 	}
 
-	const thirtyMinutesAgo = new Date().getTime() - (30 * 60 * 1000) + (60 * 60 * 1000);
+	const sixteenMinutesAgo = new Date().getTime() - (16 * 60 * 1000) + (60 * 60 * 1000);
 	return matches.every(match => {
 		const [hours, minutes] = match.split("h");
 
 		const date = new Date(new Date().setHours(+hours)).setMinutes(+minutes);
 
-		return date > thirtyMinutesAgo;
+		return date > sixteenMinutesAgo;
 	});
 }
 
