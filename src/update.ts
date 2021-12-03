@@ -122,6 +122,8 @@ const handler: Handler = async (event, context) => {
 		access_token: string;
 	};
 
+	console.log(ziggBearer);
+
 	// 4. Post to Zigg
 	const promises = issues.map(issue => {
 		return fetch(`https://api.zigg.app/communities/ratp/posts`, {
