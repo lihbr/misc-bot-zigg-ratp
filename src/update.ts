@@ -124,7 +124,7 @@ const handler: Handler = async (event, context) => {
 
 	// 4. Post to Zigg
 	const promises = issues.map(issue => {
-		return fetch(`https://api.zigg.app/communnities/ratp/posts`, {
+		return fetch(`https://api.zigg.app/communities/ratp/posts`, {
 			method: "POST",
 			headers: {
 				Authorization: `Bearer ${ziggBearer.access_token}`,
