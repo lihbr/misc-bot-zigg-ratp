@@ -5,9 +5,9 @@
 	# Build command
 	command = "npm run build"
 	# Build directory
-	publish = "dist/"
+	publish = "public/"
 	# Serverless Lambda functions
-	functions = "functions/"
+	functions = "src/"
 
 # Enforce yarn
 [build.environment]
