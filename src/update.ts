@@ -114,18 +114,15 @@ const handler: Handler = async (event, context) => {
 		...traffic.result.rers.filter(hasCurrentTrafficIssue).map(parseTrafficIssue("rer"))
 	];
 
-	console.log(issues);
-
 	// 3. Get Zigg bearer
 	const ziggBearer = (await (await fetch(`https://api.zigg.app/auth?apikey=${process.env.ZIGG_TOKEN}`)).json()) as {
 		token_type: "bearer";
 		access_token: string;
 	};
 
-	console.log(ziggBearer);
-
 	// 4. Post to Zigg
 	const promises = issues.map(issue => {
+		console.log(JSON.stringify(issue))
 		return fetch(`https://api.zigg.app/communities/ratp/posts`, {
 			method: "POST",
 			headers: {
