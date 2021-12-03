@@ -136,8 +136,10 @@ const handler: Handler = async (event, context) => {
 	});
 
 	try {
-		const success = await Promise.all(promises);
-		console.log(success);
+		const response = await Promise.all(promises);
+		if (response[0]) {
+			console.log(await response[0].json());
+		}
 	} catch (error) {
 		console.log(error)
 	}
