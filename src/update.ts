@@ -126,6 +126,7 @@ const handler: Handler = async (event, context) => {
 		return fetch(`https://api.zigg.app/communities/ratp/posts`, {
 			method: "POST",
 			headers: {
+				"Content-Type": "application/json",
 				Authorization: `Bearer ${ziggBearer.access_token}`,
 			},
 			body: JSON.stringify(issue),
