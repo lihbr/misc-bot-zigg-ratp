@@ -54,7 +54,7 @@ const hasCurrentTrafficIssue = (traffic: Traffic): boolean => {
 		return false;
 	};
 
-	const matches = traffic.message.match(/\d\dh\d\d/i);
+	const matches = traffic.message.toLowerCase().match(/\d\dh\d\d/i);
 
 	if (!matches) {
 		return false;
