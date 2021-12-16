@@ -105,45 +105,52 @@ const parseTrafficIssue = (type: keyof typeof trafficIssue): (traffic: Traffic) 
 }
 
 const handler: Handler = async (event, context) => {
-	// 1. Get current traffic
-	const traffic = await getTrafficInfo();
-
-	// 2. Parse data
-	const issues = [
-		...traffic.result.metros.filter(hasCurrentTrafficIssue).map(parseTrafficIssue("metro")),
-		...traffic.result.rers.filter(hasCurrentTrafficIssue).map(parseTrafficIssue("rer"))
-	];
-
-	// 3. Get Zigg bearer
-	const ziggBearer = (await (await fetch(`https://api.zigg.app/auth?apikey=${process.env.ZIGG_TOKEN}`)).json()) as {
-		token_type: "bearer";
-		access_token: string;
-	};
-
-	// 4. Post to Zigg
-	const promises = issues.map(issue => {
-		console.log(JSON.stringify(issue))
-		return fetch(`https://api.zigg.app/communities/ratp/posts`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${ziggBearer.access_token}`,
-			},
-			body: JSON.stringify(issue),
-		})
-	});
-
 	try {
-		const response = await Promise.all(promises);
-		if (response[0]) {
-			console.log(await response[0].json());
-		}
-	} catch (error) {
-		console.log(error)
-	}
+		// 1. Get current traffic
+		const traffic = await getTrafficInfo();
 
-	// Sleep 1 second
-	await new Promise(resolve => setTimeout(resolve, 1000));
+		// 2. Parse data
+		const issues = [
+			...traffic.result.metros.filter(hasCurrentTrafficIssue).map(parseTrafficIssue("metro")),
+			...traffic.result.rers.filter(hasCurrentTrafficIssue).map(parseTrafficIssue("rer"))
+		];
+
+		// 3. Get Zigg bearer
+		const ziggBearer = (await (await fetch(`https://api.zigg.app/auth?apikey=${process.env.ZIGG_TOKEN}`)).json()) as {
+			token_type: "bearer";
+			access_token: string;
+		};
+
+		// 4. Post to Zigg
+		const promises = issues.map(issue => {
+			console.log(JSON.stringify(issue))
+			return fetch(`https://api.zigg.app/communities/ratp/posts`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${ziggBearer.access_token}`,
+				},
+				body: JSON.stringify(issue),
+			})
+		});
+
+		if (promises.length > 0) {
+			try {
+				const response = await promises[0];
+				if (response) {
+					console.log(await response.json());
+				}
+			} catch (error) {
+				console.log(error)
+			}
+		}
+
+
+		// Sleep 1 second
+		await new Promise(resolve => setTimeout(resolve, 1000));
+	} catch (error) {
+		console.error(error);
+	}
 
   return { statusCode: 200 };
 };
