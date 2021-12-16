@@ -134,16 +134,16 @@ const handler: Handler = async (event, context) => {
 			})
 		});
 
-		if (promises.length > 0) {
-			try {
-				const response = await promises[0];
-				if (response) {
-					console.log(await response.json());
-				}
-			} catch (error) {
-				console.log(error)
-			}
-		}
+		// if (promises.length > 0) {
+		// 	try {
+		// 		const response = await promises[0];
+		// 		if (response) {
+		// 			console.log(await response.json());
+		// 		}
+		// 	} catch (error) {
+		// 		console.log(error)
+		// 	}
+		// }
 
 
 		// Sleep 1 second
